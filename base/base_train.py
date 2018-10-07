@@ -1,54 +1,43 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Oct  7 10:11:55 2018
+
+@author: xiang
+"""
+
 import tensorflow as tf
 
-
-class BaseTrain:
-    def __init__(self, sess, model, config, logger, data_loader=None):
-        """
-        Constructing the trainer
-        :param sess: TF.Session() instance
-        :param model: The model instance
-        :param config: config namespace which will contain all the configurations you have specified in the json
-        :param logger: logger class which will summarize and write the values to the tensorboard
-        :param data_loader: The data loader if specified. (You will find Dataset API example)
-        """
-        # Assign all class attributes
-        self.model = model
-        self.logger = logger
+def BaseTrain:
+    '''
+    Combine config, data, logger and model. And iterate across train
+    '''
+    def __init__(self, sess, config, data_loader = None, logger, model):
         self.config = config
         self.sess = sess
+        self.logger = logger
+        self.model = model
+
         if data_loader is not None:
             self.data_loader = data_loader
 
-        # Initialize all variables of the graph
-        self.init = tf.global_variables_initializer()
-        self.sess.run(self.init)
+        self.train_init = tf.global_variable_initializer()
+        self.sess.run(self.train_init)
 
     def train(self):
-        """
-        This is the main loop of training
-        Looping on the epochs
-        :return:
-        """
-        for cur_epoch in range(self.model.cur_epoch_tensor.eval(self.sess), self.config.num_epochs + 1, 1):
+        raise NotImplementedError
+        for cur_epoch in range(self.epoch_step.eval(self.sess), self.config.num_epoch):
             self.train_epoch()
-            self.sess.run(self.model.increment_cur_epoch_tensor)
+            self.sess.run(self.model.epoch_step_increment)
 
-    def train_epoch(self, epoch=None):
-        """
-        implement the logic of epoch:
-        -loop over the number of iterations in the config and call the train step
-        -add any summaries you want using the summary
-
-        :param epoch: take the number of epoch if you are interested
-        :return:
-        """
+    def train_epoch(self):
+        '''
+        Iterate across all training record.
+        '''
         raise NotImplementedError
 
     def train_step(self):
-        """
-        implement the logic of the train step
-
-        - run the tensorflow session
-        :return: any metrics you need to summarize
-        """
+        '''
+        trigger computation of the graph
+        train against batch sample, depending on batch size
+        '''
         raise NotImplementedError
