@@ -1,0 +1,15 @@
+## For Trial on small dataset
+
+dataset = tf.data.Dataset.from_tensor_slice([1,2,3,4,5]) ## create constant tensor ? 
+
+Iterator = dataset.make_one_shot_iterator()
+
+next_element = Iterator.get_next()## Iterator.next_batch() 
+
+with tf.session() as sess: 
+
+	for i in range(5):
+		print(sess.run(next_element()))
+
+
+## For Trial on big datas
