@@ -1,4 +1,8 @@
 ## For Trial on small dataset
+## ? dataset cut by column
+## ? dataset 如何传入结构化数据
+### 1. 直接传入数据- 可以用dict？ 
+### 2. repeat and epoch. duplicates function? 
 
 dataset = tf.data.Dataset.from_tensor_slice([1,2,3,4,5]) ## create constant tensor ? 
 
