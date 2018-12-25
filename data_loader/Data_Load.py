@@ -185,6 +185,7 @@ class DataLoaderNumpy_Big:
             ## config Dataset: batch, shuffle
             self.dataset = self.dataset.batch(self.config.batch_size)
             ## Define a reinitializable Iterator by (type, shape)
+				 ## Compare with initializalbe Iterator, it can be initialized by different dataset with same structure
             self.iterator = tf.data.Iterator.from_structure(self.dataset.output_types,
                                                        self.dataset.output_shapes)
             ## Create initialize operation for Iterator
