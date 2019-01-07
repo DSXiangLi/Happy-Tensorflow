@@ -7,7 +7,7 @@ Created on Sun Oct  7 10:11:55 2018
 
 import tensorflow as tf
 
-def BaseTrain:
+class BaseTrain:
     '''
     Combine config, data, logger and model. And iterate across train
     '''
