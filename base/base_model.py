@@ -43,7 +43,8 @@ class BaseModel:
             print('Model loaded')
 
     def init_save(self, sess):
-        raise NotImplementedError
+        ### Initialize saver object for later model saving 
+        pass 
 
     def build_model(self):
         raise NotImplementedError
